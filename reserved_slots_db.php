@@ -1,20 +1,6 @@
 <?php
 require_once("reserved_slots.php");
-
-//##########################################################
-$user = "";
-$password = "";
-$hostname = "localhost"; 
-
-$dbhandle = mysql_connect($hostname, $user, $password) 
- or die("Unable to connect to MySQL");
-echo "Connected to MySQL<br>";
-
-$selected = mysql_select_db("",$dbhandle) 
-  or die("Could not select database");
-  
-//#############################################################
- 
+require_once("db.php");
 //$oldReservedPlayers = mysql_query("SELECT player_name FROM adkats_accesslist where access_level = 5");
 	function oldReservedPlayers($alevel = 5){
 	
@@ -39,12 +25,7 @@ echo $oldReservedPlayers."\n";
 $new_players = array_diff($reservedPlayers, $oldReservedPlayers);
 $old_players = array_diff($oldReservedPlayers, $reservedPlayers);
 
-foreach ($new_players as &$new)
-	{
-	$new_players[$new];
-	}
-	return $new;
-	/*
+foreach ($new_players as &$new)	{
 	$query = 'INSERT INTO `adkats_accesslist` (`player_name`, `member_id`, `player_email`, `access_level`) VALUES ("'.$new.'", 0, "test@gmail.com", 5)';
 	//mysql_query($query);
 	$result = mysql_fetch_array($query) or die(mysql_error());
@@ -54,7 +35,8 @@ if (!$result) {
     $message  = 'Invalid query: ' . mysql_error() . "\n";
     $message .= 'Whole query: ' . $query;
     die($message);
-}*/
+}
+}
 /*
 foreach ( $old_players as &$old) 
 	{
